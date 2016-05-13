@@ -227,45 +227,11 @@
         <blockquote>
 <ul>
 <li>View的基础知识<br>1.1 什么是view?<br>View是界面层的控件的一种抽象，可以代表一个控件。ViewGroup内部包含了许多控件，他继承了View，可以内含很多控件。<br><br>位置参数：<br>Left:     View的左上角到父容器左边缘的距离。<code>Left=getLeft();</code><br>Right:   View的右下角到父容器左边缘的距离。<code>Right=getRight();</code><br>Top: View的左上角到父容器上边缘的距离。<code>Top=getTop();</code><br>Buttom:    View的右下角到父容器上边缘的距离。<code>Butoom=getButtom();</code><br>Width: Right-Left<br>Height: Buttom-Top<br><br>从Android3.0开始新增几个参数:<br>X:View的左上角的横坐标<br>Y:View的右上角的纵坐标<br>TranslationX:View的左上角相对父布局左边界的位移量<br>TranslationY:View的左上角相对父布局上边界的位移量<br>其中:<br>x=left+translationX;<br>值得注意的是，在View平移的过程中，Top和Left都不会改变，改变的是X,Y,TranslantionX,TranslationY;</li>
+<li>MotionEvent和TouchSlop<br>1.. MotionEvent<br><br>手指接触屏幕后产生的一系列事件:<br>ACTION_DOWN–手指刚接触屏幕；<br>ACTION_MOVE–手指在屏幕上移动；<br>ACTION_UP–手指在屏幕上松开的瞬间；<br><br>getX/getY:相对父布局的距离。<br>getRawX/getRawY:相对手机屏幕的距离。<br><br>2..TouchSlop<br>系统能识别的最小距离，用来进行滑动的判断。</li>
+<li>Velocity,GestureDetector,Scroller<br>3.1 Velocity<br>速度追踪，用来接听手指滑动过程的速度，包括水平和竖直方向上的速度。<br><pre><code>VelocityTracker velocityTracker = VelocityTracker.obtain();<br>  velocityTracker.addMovement(event);<br>  velocityTracker.computeCurrentVelocity(1000);<br>  int xVelocity = (int) velocityTracker.getXVelocity();<br>  int yVelocity = (int) velocityTracker.getYVelocity();<br>  Log.d(“TAG”, String.valueOf(xVelocity));<br>  velocityTracker.clear();<br>  velocityTracker.recycle();</code></pre><br>用法很简单，首先拿到速度追踪器的对象，之后在里面添加需要监听的事件，设置时间。然后通过getXVelocity();/getYVelocity(); 方法分别获得想要的速度，之后不需要使用它时，用clear();重置然后回收。<br><br>3.2 GestureDeector<br>之前已经有过这个类的解析－－<a href="http://www.jianshu.com/p/bac3875908d7" target="_blank" rel="external">GestureDeector类解析</a><br><br>3.3 Scroller<br>弹性滑动对象，用于实现View的弹性滑动。关于View 的滑动后面会详细介绍。</li>
+<li>View的滑动<br>4.1 使用ScrollTo/ScrollBy:<br><pre><code>public void scrollTo(int x, int y)  {<br>if (mScrollX != x || mScrollY != y) {<br>  int oldX = mScrollX;<br>  int oldY = mScrollY;<br>  mScrollX = x;<br>  mScrollY = y;<br>  invalidateParentCaches();<br>  onScrollChanged(mScrollX, mScrollY, oldX, oldY);<br>if (!awakenScrollBars()) {<br>  postInvalidateOnAnimation();<br>  }<br>}<br>}</code></pre><br>先来看方法的具体实现。这里的属性看属性名字就知道她具体表明什么。<br>首先mScrollX/mScrollY可以通过getScrollX/getScrollY来获得，下面解释下mScrollX/mScrollY值的计算过程。<br><br>mScrollX:View的左边缘到View的内容的左边缘的距离。且当左边缘在内容左边缘右边时为正。<br>mScrollY:View的上边缘到View的内容的上边缘的距离。且当上边缘在内容上边缘下边时为正。<br><br>那么为什么会有这两个值呢？因为ScrollTo/ScrollBy这两个方法都只移动View的内容而不改变View的本身。<br><br>4.2 使用动画<br>以后会专门写一篇关于动画的笔记，就放到以后去讲。<br><br>4.3改变布局参数<br>这个方法比较特殊，通过改变布局相对周围的距离来实现移动的效果。<br><pre><code>ViewGroup.MarginLayoutParams params= (ViewGroup.MarginLayoutParams) mButton.getLayoutParams();<br>  params.width+=100;<br>  params.leftMargin+=100;<br>  Log.d(“TAG”, String.valueOf(params.width));<br>  mButton.requestLayout();</code></pre></li>
 </ul>
 </blockquote>
-<ul>
-<li><p>MotionEvent和TouchSlop<br>1.. MotionEvent<br><br>手指接触屏幕后产生的一系列事件:<br>ACTION_DOWN–手指刚接触屏幕；<br>ACTION_MOVE–手指在屏幕上移动；<br>ACTION_UP–手指在屏幕上松开的瞬间；<br><br>getX/getY:相对父布局的距离。<br>getRawX/getRawY:相对手机屏幕的距离。<br><br>2..TouchSlop<br>系统能识别的最小距离，用来进行滑动的判断。</p>
-</li>
-<li><p>Velocity,GestureDetector,Scroller<br>3.1 Velocity<br>速度追踪，用来接听手指滑动过程的速度，包括水平和竖直方向上的速度：</p>
-<pre><code>VelocityTracker velocityTracker = VelocityTracker.obtain();         
-velocityTracker.addMovement(event);  
-velocityTracker.computeCurrentVelocity(1000);
-int xVelocity = (int) velocityTracker.getXVelocity();
-int yVelocity = (int) velocityTracker.getYVelocity();    
-Log.d(&quot;TAG&quot;, String.valueOf(xVelocity));        
-velocityTracker.clear();   
-velocityTracker.recycle();
-</code></pre><p>用法很简单，首先拿到速度追踪器的对象，之后在里面添加需要监听的事件，设置时间。然后通过getXVelocity();/getYVelocity(); 方法分别获得想要的速度，之后不需要使用它时，用clear();重置然后回收。<br><br>3.2 GestureDeector<br>之前已经有过这个类的解析－－<a href="http://www.jianshu.com/p/bac3875908d7" target="_blank" rel="external">GestureDeector类解析</a><br><br>3.3 Scroller<br>弹性滑动对象，用于实现View的弹性滑动。关于View 的滑动后面会详细介绍。</p>
-</li>
-<li><p>View的滑动<br>4.1 使用ScrollTo/ScrollBy:</p>
-<pre><code>public void scrollTo(int x, int y)  {    
-  if (mScrollX != x || mScrollY != y) {
-  int oldX = mScrollX;
-  int oldY = mScrollY;
-  mScrollX = x;
-  mScrollY = y;
-  invalidateParentCaches();
-  onScrollChanged(mScrollX, mScrollY, oldX, oldY); 
-  if (!awakenScrollBars()) {            
-    postInvalidateOnAnimation();
-  }
- }
-}
-</code></pre><p>先来看方法的具体实现。这里的属性看属性名字就知道她具体表明什么。<br>首先mScrollX/mScrollY可以通过getScrollX/getScrollY来获得，下面解释下mScrollX/mScrollY值的计算过程。<br><br>mScrollX:View的左边缘到View的内容的左边缘的距离。且当左边缘在内容左边缘右边时为正。<br>mScrollY:View的上边缘到View的内容的上边缘的距离。且当上边缘在内容上边缘下边时为正。<br><br>那么为什么会有这两个值呢？因为ScrollTo/ScrollBy这两个方法都只移动View的内容而不改变View的本身。<br><br>4.2 使用动画<br>以后会专门写一篇关于动画的笔记，就放到以后去讲。<br><br>4.3改变布局参数<br>这个方法比较特殊，通过改变布局相对周围的距离来实现移动的效果。</p>
-<pre><code>ViewGroup.MarginLayoutParams params= (ViewGroup.MarginLayoutParams) mButton.getLayoutParams();
-params.width+=100;
-
-params.leftMargin+=100;
-Log.d(&quot;TAG&quot;, String.valueOf(params.width));
-mButton.requestLayout();
-</code></pre></li>
-</ul>
 
       
     </div>
