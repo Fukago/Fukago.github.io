@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>第一篇博客 | Mu的博客</title>
+  <title>View的事件体系(一) | Mu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一篇博客，弄了一天了，简直残忍.">
+  <meta name="description" content="View的基础知识1.1 什么是view?View是界面层的控件的一种抽象，可以代表一个控件。ViewGroup内部包含了许多控件，他继承了View，可以内含很多控件。位置参数：Left:     View的左上角到父容器左边缘的距离。Left=getLeft();Right:   View的右下角到父容器左边缘的距离。Right=getRight();Top: View的左上角到父容器上边缘">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第一篇博客">
-<meta property="og:url" content="http://yoursite.com/2016/05/13/文章题目/index.html">
+<meta property="og:title" content="View的事件体系(一)">
+<meta property="og:url" content="http://yoursite.com/2016/05/13/View-System/index.html">
 <meta property="og:site_name" content="Mu的博客">
-<meta property="og:description" content="第一篇博客，弄了一天了，简直残忍.">
-<meta property="og:updated_time" content="2016-05-13T08:51:51.000Z">
+<meta property="og:description" content="View的基础知识1.1 什么是view?View是界面层的控件的一种抽象，可以代表一个控件。ViewGroup内部包含了许多控件，他继承了View，可以内含很多控件。位置参数：Left:     View的左上角到父容器左边缘的距离。Left=getLeft();Right:   View的右下角到父容器左边缘的距离。Right=getRight();Top: View的左上角到父容器上边缘">
+<meta property="og:updated_time" content="2016-05-13T11:44:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第一篇博客">
-<meta name="twitter:description" content="第一篇博客，弄了一天了，简直残忍.">
+<meta name="twitter:title" content="View的事件体系(一)">
+<meta name="twitter:description" content="View的基础知识1.1 什么是view?View是界面层的控件的一种抽象，可以代表一个控件。ViewGroup内部包含了许多控件，他继承了View，可以内含很多控件。位置参数：Left:     View的左上角到父容器左边缘的距离。Left=getLeft();Right:   View的右下角到父容器左边缘的距离。Right=getRight();Top: View的左上角到父容器上边缘">
   
     <link rel="alternative" href="/atom.xml" title="Mu的博客" type="application/atom+xml">
   
@@ -197,11 +197,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-文章题目" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-View-System" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/05/13/文章题目/" class="article-date">
-  	<time datetime="2016-05-13T08:47:09.000Z" itemprop="datePublished">2016-05-13</time>
+      <a href="/2016/05/13/View-System/" class="article-date">
+  	<time datetime="2016-05-13T11:42:25.000Z" itemprop="datePublished">2016-05-13</time>
 </a>
     </div>
   
@@ -214,7 +214,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      第一篇博客
+      View的事件体系(一)
     </h1>
   
 
@@ -223,12 +223,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Yilia/">Yilia</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/view/">view</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+	<a class="article-category-link" href="/categories/blog/">blog</a>
 	</div>
 
 
@@ -239,8 +239,47 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>第一篇博客，弄了一天了，简直残忍.</p>
+<ul>
+<li>View的基础知识<br>1.1 什么是view?<br>View是界面层的控件的一种抽象，可以代表一个控件。ViewGroup内部包含了许多控件，他继承了View，可以内含很多控件。<br><br>位置参数：<br>Left:     View的左上角到父容器左边缘的距离。<code>Left=getLeft();</code><br>Right:   View的右下角到父容器左边缘的距离。<code>Right=getRight();</code><br>Top: View的左上角到父容器上边缘的距离。<code>Top=getTop();</code><br>Buttom:    View的右下角到父容器上边缘的距离。<code>Butoom=getButtom();</code><br>Width: Right-Left<br>Height: Buttom-Top<br><br>从Android3.0开始新增几个参数:<br>X:View的左上角的横坐标<br>Y:View的右上角的纵坐标<br>TranslationX:View的左上角相对父布局左边界的位移量<br>TranslationY:View的左上角相对父布局上边界的位移量<br>其中:<br>x=left+translationX;<br>值得注意的是，在View平移的过程中，Top和Left都不会改变，改变的是X,Y,TranslantionX,TranslationY;</li>
+</ul>
 </blockquote>
+<ul>
+<li><p>MotionEvent和TouchSlop<br>1.. MotionEvent<br><br>手指接触屏幕后产生的一系列事件:<br>ACTION_DOWN–手指刚接触屏幕；<br>ACTION_MOVE–手指在屏幕上移动；<br>ACTION_UP–手指在屏幕上松开的瞬间；<br><br>getX/getY:相对父布局的距离。<br>getRawX/getRawY:相对手机屏幕的距离。<br><br>2..TouchSlop<br>系统能识别的最小距离，用来进行滑动的判断。</p>
+</li>
+<li><p>Velocity,GestureDetector,Scroller<br>3.1 Velocity<br>速度追踪，用来接听手指滑动过程的速度，包括水平和竖直方向上的速度：</p>
+<pre><code>VelocityTracker velocityTracker = VelocityTracker.obtain();         
+velocityTracker.addMovement(event);  
+velocityTracker.computeCurrentVelocity(1000);
+int xVelocity = (int) velocityTracker.getXVelocity();
+int yVelocity = (int) velocityTracker.getYVelocity();    
+Log.d(&quot;TAG&quot;, String.valueOf(xVelocity));        
+velocityTracker.clear();   
+velocityTracker.recycle();
+</code></pre><p>用法很简单，首先拿到速度追踪器的对象，之后在里面添加需要监听的事件，设置时间。然后通过getXVelocity();/getYVelocity(); 方法分别获得想要的速度，之后不需要使用它时，用clear();重置然后回收。<br><br>3.2 GestureDeector<br>之前已经有过这个类的解析－－<a href="http://www.jianshu.com/p/bac3875908d7" target="_blank" rel="external">GestureDeector类解析</a><br><br>3.3 Scroller<br>弹性滑动对象，用于实现View的弹性滑动。关于View 的滑动后面会详细介绍。</p>
+</li>
+<li><p>View的滑动<br>4.1 使用ScrollTo/ScrollBy:</p>
+<pre><code>public void scrollTo(int x, int y)  {    
+  if (mScrollX != x || mScrollY != y) {
+  int oldX = mScrollX;
+  int oldY = mScrollY;
+  mScrollX = x;
+  mScrollY = y;
+  invalidateParentCaches();
+  onScrollChanged(mScrollX, mScrollY, oldX, oldY); 
+  if (!awakenScrollBars()) {            
+    postInvalidateOnAnimation();
+  }
+ }
+}
+</code></pre><p>先来看方法的具体实现。这里的属性看属性名字就知道她具体表明什么。<br>首先mScrollX/mScrollY可以通过getScrollX/getScrollY来获得，下面解释下mScrollX/mScrollY值的计算过程。<br><br>mScrollX:View的左边缘到View的内容的左边缘的距离。且当左边缘在内容左边缘右边时为正。<br>mScrollY:View的上边缘到View的内容的上边缘的距离。且当上边缘在内容上边缘下边时为正。<br><br>那么为什么会有这两个值呢？因为ScrollTo/ScrollBy这两个方法都只移动View的内容而不改变View的本身。<br><br>4.2 使用动画<br>以后会专门写一篇关于动画的笔记，就放到以后去讲。<br><br>4.3改变布局参数<br>这个方法比较特殊，通过改变布局相对周围的距离来实现移动的效果。</p>
+<pre><code>ViewGroup.MarginLayoutParams params= (ViewGroup.MarginLayoutParams) mButton.getLayoutParams();
+params.width+=100;
+
+params.leftMargin+=100;
+Log.d(&quot;TAG&quot;, String.valueOf(params.width));
+mButton.requestLayout();
+</code></pre></li>
+</ul>
 
       
     </div>
@@ -250,15 +289,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/05/13/Observer-Mode/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Observer Mode
-        
-      </div>
-    </a>
   
+    <a href="/2016/05/13/Observer-Mode/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Observer Mode</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -291,7 +326,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="文章题目" data-title="第一篇博客" data-url="http://yoursite.com/2016/05/13/文章题目/"></div>
+	<div class="ds-thread" data-thread-key="View-System" data-title="View的事件体系(一)" data-url="http://yoursite.com/2016/05/13/View-System/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
